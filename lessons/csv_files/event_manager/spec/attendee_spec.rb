@@ -37,4 +37,22 @@ describe Attendee do
     expect(@person_3.zipcode).to eq "00000"
     expect(@person_4.zipcode).to eq "21230"
   end
+
+  describe '#display' do
+    it 'displays the id, name, and zipcode' do
+      expect(@person_1.display).to eq("1: Allison Nguyen, 20010")
+      expect(@person_2.display).to eq("4: David Thomas, 07306")
+      expect(@person_3.display).to eq("5: Chris Sackett, 00000")
+      expect(@person_4.display).to eq("7: Mary Kate Curry, 21230")
+    end
+  end
+
+  describe '#clean_zipcode' do
+    it 'cleans up the zipcode base on the input' do
+      expect(@person_1.clean_zipcode(20010)).to eq("20010")
+      expect(@person_2.clean_zipcode(7306)).to eq("07306")
+      expect(@person_3.clean_zipcode(nil)).to eq("00000")
+      expect(@person_4.clean_zipcode(21230)).to eq("21230")
+    end
+  end
 end
