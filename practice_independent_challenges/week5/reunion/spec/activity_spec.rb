@@ -1,3 +1,4 @@
+require 'rspec'
 require './lib/activity'
 
 RSpec.describe Activity do
@@ -9,7 +10,24 @@ RSpec.describe Activity do
     it 'exists and has attributes' do
       expect(@activity).to be_a(Activity)
       expect(@activity.name).to eq('Brunch')
-      expect(@activity.participant).to eq({})
+      expect(@activity.participants).to eq({})
+    end
+
+    it 'can add participants' do
+      @activity.add_participant('Maria', 20)
+      expect(@activity.participants).to eq({'Maria' => 20})
+      expect(@activity.total_cost).to eq(20)
+
+      @activity.add_participant("Luther", 40)
+      expect(@activity.participants).to eq({'Maria' => 20, 'Luther' => 40})
+    end
+
+    it 'can split the cost across participants' do
+      @activity.add_participant('Maria', 20)
+      @activity.add_participant("Luther", 40)
+
+      expect(@activity.total_cost).to eq(60)
+      expect(@activity.split).to eq(30)
     end
   end
 end
