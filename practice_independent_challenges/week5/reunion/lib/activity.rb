@@ -1,12 +1,14 @@
 class Activity
   attr_reader :name, 
               :participants, 
-              :total_cost
+              :total_cost,
+              :amount_owed
 
   def initialize(name)
     @name = name
     @participants = {}
     @total_cost = 0
+    @amount_owed = {}
   end
 
   def add_participant(participant, money_paid)
@@ -19,10 +21,9 @@ class Activity
   end
   
   def owed
-    amount_owed = {}
     @participants.each do |participant, money_paid|
       amount_owed[participant] = split - money_paid
     end
-    amount_owed
+    @amount_owed
   end
 end
