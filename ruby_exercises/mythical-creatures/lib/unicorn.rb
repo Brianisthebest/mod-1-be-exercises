@@ -1,17 +1,16 @@
 class Unicorn
   attr_reader :name, :color
 
-  def initialize(name, color = "silver")
+  def initialize(name, color = 'silver')
     @name = name
     @color = color
   end
 
   def silver?
-    return true if @color == "silver"
-    false
+    @color == 'silver'
   end
 
-  def say(sparkly_stuff)
-    "**;* #{sparkly_stuff} **;*"
+  def say(words)
+    return "**;* #{words} **;*"
   end
 end
