@@ -1,5 +1,7 @@
 # ./lib/event_manager.rb
 require "csv"
+require './lib/attendee'
+require './lib/event_manager'
 puts "EventManager initialized."
 #  contents = File.read "event_attendees.csv"
 #  puts contents
@@ -14,18 +16,25 @@ puts "EventManager initialized."
 # end
 require 'csv'
 
-def clean_zipcode(zipcode)
-  zipcode.to_s.rjust(5,"0")[0..4]
-end
 
 puts "EventManager initialized."
+class EventManager
+  attr_reader :attendees
+  content = CSV.open 'event_attendees.csv', headers: true, header_converters: :symbol
 
-contents = CSV.open 'event_attendees.csv', headers: true, header_converters: :symbol
+  def initialize
+    @attendees = []
+  end
 
-contents.each do |row|
-  name = row[:first_name]
-
-  zipcode = clean_zipcode(row[:zipcode])
-
-  puts "#{name} #{zipcode}"
+  def add_attendee(content)
+    contents.each do |row|
+      first_name = row[:first_name]
+      last_name = row[:last_name]
+      zipcode = row[:zipcode]
+      id = id
+      @attendees << attendee = Attendee.new(id, first_name, last_name, zipcode)
+    end
+    require 'pry'; binding.pry
+  end
 end
+  

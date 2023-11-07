@@ -1,32 +1,39 @@
 class Reunion
-  attr_reader :name,
-              :activities,
-              :total_reunion_cost
+  attr_reader :name, :activities
 
   def initialize(name)
     @name = name
     @activities = []
-    @total_reunion_cost = 0
-    @reunion_amount_owed = Hash.new(0)
   end
 
   def add_activity(activity)
-    @activities.push(activity)
+    @activities << activity
   end
 
   def total_cost
-    @activities.each do |activity|
-      @total_reunion_cost += activity.total_cost
-    end
-    @total_reunion_cost
+    @activities.sum(&:total_cost)
+    # @activities.sum do |activity|
+    #   activity.total_cost
+    # end
   end
 
-  def total_owed
+  def breakdown
+    breakdown_hash = Hash.new(0)
+
     @activities.each do |activity|
-      activity.owed.each do |name, amount|
-        @reunion_amount_owed[name] += amount
+      activity.owed.each do |name, amount_owed|
+        breakdown_hash[name] += amount_owed
       end
     end
-    @reunion_amount_owed
+    breakdown_hash
+  end
+
+  def summary
+    summary = []
+    
+    self.breakdown.each do |name, amount_owed|
+      summary << "#{name}: $#{amount_owed}"
+    end
+    summary.join("\n")
   end
 end

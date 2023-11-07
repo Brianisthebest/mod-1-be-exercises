@@ -21,7 +21,7 @@ RSpec.describe Medusa do
 
   it "when first created she has no statues" do
     medusa = Medusa.new("Cassiopeia")
-
+require 'pry'; binding.pry
     expect(medusa.statues.empty?).to eq([])
   end
 

@@ -1,7 +1,10 @@
-class Intern
+require './lib/employee'
+
+class Intern < Employee
   attr_reader :base_salary
   
-  def initialize(base_salary)
+  def initialize(base_salary, name, id)
+    super(name, id)
     @base_salary = base_salary
   end
 
@@ -11,6 +14,7 @@ class Intern
 
   def benefits
     [:gets_to_get_me_coffee]
+    super.unshift(:gets_to_get_me_coffee)
   end
 
 end

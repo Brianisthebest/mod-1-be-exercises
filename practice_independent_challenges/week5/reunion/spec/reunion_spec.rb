@@ -1,60 +1,71 @@
-require 'rspec'
 require './lib/activity'
 require './lib/reunion'
+require 'rspec'
 
 RSpec.describe Reunion do
   before(:each) do
-    @reunion = Reunion.new("1406 BE")
-    @activity_1 = Activity.new("Brunch")
-    @activity_2 = Activity.new('Drinks')
+    @reunion = Reunion.new("2301 BE")
 
+    @activity_1 = Activity.new("Brunch")
+    @activity_2 = Activity.new("Drinks")
+    @activity_3 = Activity.new("Bowling")
+
+    @activity_1.add_participant("Maria", 20)
+    @activity_1.add_participant("Luther", 40)
+    
+    @activity_2.add_participant("John", 80)
+    @activity_2.add_participant("Maria", 20)
+    @activity_2.add_participant("Luther", 40)
   end
 
-  describe 'reunion' do
+  describe '#initialize' do
     it 'exists and has attributes' do
       expect(@reunion).to be_a(Reunion)
-      expect(@reunion.name).to eq('1406 BE')
+      expect(@reunion.name).to eq("2301 BE")
       expect(@reunion.activities).to eq([])
     end
+  end
 
-    it 'can add activities' do
+  describe '#add_activity' do
+    it 'adds activity to activities' do
+      expect(@reunion.activities).to eq([])
+
       @reunion.add_activity(@activity_1)
+
       expect(@reunion.activities).to eq([@activity_1])
+
       @reunion.add_activity(@activity_2)
+
       expect(@reunion.activities).to eq([@activity_1, @activity_2])
     end
-    
-    it 'can tell the total cost of event' do
-      @reunion.add_activity(@activity_1)
-      @reunion.add_activity(@activity_2)
-      @activity_1.add_participant('Maria', 20)
-      @activity_1.add_participant("Luther", 40)
-      @activity_2.add_participant('Maria', 40)
-      @activity_2.add_participant("Luther", 50)
+  end
 
-      expect(@reunion.total_cost).to eq(150)
+  describe '#total_cost' do
+    it 'returns total cost of reunion' do
+      @reunion.add_activity(@activity_1)
+      
+      expect(@reunion.total_cost).to eq(60)
+      
+      @reunion.add_activity(@activity_2)
+
+      expect(@reunion.total_cost).to eq(200)
     end
-    
-    it 'provides a list of participants and what they owe' do
+  end
+
+  describe '#breakdown' do
+    it 'returns a breakdown of what each participant owes' do
       @reunion.add_activity(@activity_1)
       @reunion.add_activity(@activity_2)
-      @activity_1.add_participant('Maria', 20)
-      @activity_1.add_participant("Luther", 40)
-      @activity_2.add_participant('Maria', 40)
-      @activity_2.add_participant("Luther", 50)
-
-      expect(@reunion.total_owed).to eq({'Maria' => 15, 'Luther' => -15})
+      
+      expect(@reunion.breakdown).to eq({"Maria"=>36, "Luther"=>-4, "John"=>-34})
     end
+  end
 
-    it 'can print a summary of hash above and sep by line break' do
+  describe '#summary' do
+    it 'returns a summer seperating each participants name and what they owe' do
       @reunion.add_activity(@activity_1)
-      @reunion.add_activity(@activity_2)
-      @activity_1.add_participant('Maria', 20)
-      @activity_1.add_participant("Luther", 40)
-      @activity_2.add_participant('Maria', 40)
-      @activity_2.add_participant("Luther", 50)
-      expect(@reunion.total_owed).to eq({'Maria' => 15, 'Luther' => -15})
-      expect(@reunion.summary).to eq('Maria: $15\nLuther: $-15')
+
+      expect(@reunion.summary).to eq("Maria: $10\nLuther: $-10")
     end
   end
 end

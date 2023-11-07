@@ -213,14 +213,24 @@ characters = [
 # Challenge #1 
 
 # Get a unique list of the homeworlds
-
+homeworlds = []
+characters.each do |character|
+    homeworlds << character[:homeworld]
+end
+p homeworlds.uniq
 # ["Tatooine", "Naboo", "Alderaan" ... ]
 
 
 # Challenge #2
 
 # Get a list of the characters who have starships
-
+starships = []
+characters.each do |character|
+    if character[:starships].count > 0
+        starships << character[:name]
+    end 
+end
+p starships
 # ["Luke Skywalker", "Darth Vader", "Biggs Darklighter" ... ]
 
 
@@ -228,7 +238,11 @@ characters = [
 # CHALLENGE #3
 
 # Create a new hash such that each character points to their collection of starships: 
+@sw_cars = Hash.new
 
+characters.each do |character|
+    @sw_cars[character[:name]] = character[:starships]
+end
 # {
 #     "Luke Skywalker" => ["T-65 X-Wing", "Lambda-class T-4A Shuttle"],
 #     "C-3PO" => [],
@@ -238,12 +252,21 @@ characters = [
 #     ...
 #     ...
 # }
-
+# p @sw_cars
 
 # Challenge #4 
 
-# Create a new hash such that each movie points to a collection of characters 
+@movies = Hash.new
 
+characters.each do |character|
+    character[:films].each do |film|
+        @movies[film] ||= []
+        @movies[film].push character[:name]
+    end
+end
+
+p @movies
+# Create a new hash such that each movie points to a collection of characters 
 # {
 #     "A New Hope" => ["Luke Skywalker", "C-3PO", ... ],
 #     "The Empire Strikes Back" => ["Luke Skywalker", "C-3PO" ... ], 

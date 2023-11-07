@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'product'
+# require_relative 'product'
 require_relative 'catalog'
 
 RSpec.describe Catalog do

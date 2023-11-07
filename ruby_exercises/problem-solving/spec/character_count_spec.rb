@@ -1,3 +1,5 @@
+require './lib/character_count.rb'
+
 RSpec.describe 'character count' do
 
   it 'can count a small word' do

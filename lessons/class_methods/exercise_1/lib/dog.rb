@@ -26,5 +26,4 @@ class Dog
     "Self woof!"
     #binding.pry ## Can we call @number_of_woofs inside this class method? Why or why not?
   end
-
 end

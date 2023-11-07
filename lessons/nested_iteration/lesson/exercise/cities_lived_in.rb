@@ -9,8 +9,16 @@ cities_lived_in = {
 # Problem #1: 
 # Get a unique list of all of the cities that these humans have lived in  
 # ["Philadelphia", "Fort Collins", "Seattle", "Denver", "Santa Fe", "Portland", "Lansing", "Columbus", "Austin"]
+cities_list = []
+cities_lived_in.each do |name, cities|
+    cities.each do |city|
+        cities_list << city
+    end
+    require 'pry'; binding.pry
+    cities_list.uniq
+end
 
-
+p cities_list
 
 
 # Problem #2: 
@@ -26,7 +34,15 @@ cities_lived_in = {
 
 # Problem #3: 
 # Create a hash that has the city as a key, and the number of people that live in it as it's value: 
+city_lived = Hash.new(0)
 
+# cities_lived_in.each do |name, cities|
+#     cities.each do |city|
+#         city_lived(city) += 1
+#     end
+# end
+
+# p cities_lived_in
 # {
 #     "Philadelphia" => 3,
 #     "Fort Collins" => 1,
